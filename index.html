@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CO₂ Emissions by Country</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/reduce-footprint" class="nav-link">Reduce Footprint</a>
+      <a href="/causes" class="nav-link">Causes of CO₂ Pollution</a>
+      <a href="/api/top-emitters" class="nav-link">Top Emitters</a>
+    </div>
+  </nav>
+
+
+  <div class="container">
+    <h1>CO₂ Emissions by Country</h1>
+
+
+    
+    <!-- Disclaimer message about real-time data -->
+    <p class="disclaimer">
+      <em>Note: The data presented here is sourced from Our World in Data and is not updated in real time. It reflects the latest dataset available, which may have a delay of several months.</em>
+    </p>
+    
+    <div id="topEmitters"></div>
+    
+    <div class="input-group">
+      <select id="countrySelect">
+        <option value="">Select a country</option>
+      </select>
+      <button onclick="fetchData()">Get CO₂ Emissions</button>
+    </div>
+
+    <div id="data"></div>
+  </div>
+
+  <!-- Data Source Information Section -->
+  <footer>
+    <section id="data-source">
+      <h3>Data Source</h3>
+      <p>
+        The CO₂ emissions data is obtained from the 
+        <a href="https://github.com/owid/co2-data" target="_blank">Our World in Data CO₂ emissions dataset</a>, 
+        which aggregates information from reputable sources like government publications and international research organizations.
+      </p>
+      <p>
+        This dataset is periodically updated by the Our World in Data team, typically on an annual or semi-annual basis. Therefore, the data may not reflect real-time or the most recent emissions.
+      </p>
+    </section>
+  </footer>
+
+  <script>
+    // JavaScript code remains the same as provided
+
+    // Function to fetch top emitters
+    async function fetchTopEmitters() {
+      try {
+        const response = await fetch('/api/top-emitters');
+        const emitters = await response.json();
+
+        const topEmittersDiv = document.getElementById('topEmitters');
+        topEmittersDiv.innerHTML = '<h2>Top 3 CO₂ Emitting Countries</h2>';
+        emitters.forEach(emitter => {
+          const div = document.createElement('div');
+          div.classList.add('danger');
+          div.innerHTML = `<strong>${emitter.country}</strong>: ${emitter.co2} tons (Year: ${emitter.year})`;
+          topEmittersDiv.appendChild(div);
+        });
+      } catch (error) {
+        console.error('Error fetching top emitters:', error);
+      }
+    }
+
+    // Function to fetch country list
+    async function fetchCountries() {
+      try {
+        const response = await fetch('/api/countries');
+        const countries = await response.json();
+
+         // Sort countries alphabetically
+        countries.sort((a, b) => a.localeCompare(b));
+
+        const countrySelect = document.getElementById('countrySelect');
+        countries.forEach(country => {
+          const option = document.createElement('option');
+          option.value = country;
+          option.text = country;
+          countrySelect.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error fetching countries:', error);
+      }
+    }
+
+    // Fetch CO₂ data for selected country
+    async function fetchData() {
+      const country = document.getElementById('countrySelect').value;
+      if (!country) {
+        alert('Please select a country.');
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/co2-emissions?country=${country}`);
+        const data = await response.json();
+
+        if (data.length === 0) {
+          document.getElementById('data').innerHTML = 'No data found for this country.';
+          return;
+        }
+
+        let html = `<h2>CO₂ Emissions Data for ${country}</h2>`;
+        html += '<table><tr><th>Year</th><th>CO₂ Emissions (tons)</th><th>CO₂ per Capita</th></tr>';
+        data.forEach(row => {
+          html += `<tr><td>${row.year}</td><td>${row.co2}</td><td>${row.co2_per_capita}</td></tr>`;
+        });
+        html += '</table>';
+        document.getElementById('data').innerHTML = html;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        document.getElementById('data').innerHTML = 'An error occurred while fetching data.';
+      }
+    }
+
+    // Load top emitters and countries on page load
+    window.onload = function() {
+      fetchTopEmitters();
+      fetchCountries();
+    };
+  </script>
+</body>
+</html>

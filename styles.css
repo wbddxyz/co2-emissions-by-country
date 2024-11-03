@@ -1,0 +1,155 @@
+/* Global Styles */
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column; /* Ensures elements stack vertically */
+  justify-content: flex-start; /* Align items to the top */
+  align-items: center; /* Center items horizontally */
+  min-height: 100vh;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 20px;
+}
+h1, h2 {
+  color: #333;
+  text-align: center;
+}
+
+/* Container */
+.container {
+  max-width: 600px;
+  width: 100%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Danger Alert */
+.danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+/* Input and Button */
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+select, button {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+button {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Data Table */
+#data {
+  margin-top: 20px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+th {
+  background-color: #007bff;
+  color: white;
+}
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Disclaimer styling */
+.disclaimer {
+  font-size: 0.9em;
+  color: #555;
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* Footer styling for data source */
+footer {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  clear: both; /* Ensures footer clears any floated elements if applicable */
+}
+
+/* Data Source Section Styles */
+#data-source h3 {
+  margin-top: 0;
+  font-size: 1.2em;
+  color: #333;
+}
+#data-source p {
+  font-size: 0.95em;
+  color: #555;
+}
+#data-source a {
+  color: #0066cc;
+  text-decoration: none;
+}
+#data-source a:hover {
+  text-decoration: underline;
+}
+
+#data-source {
+  clear: both; /* Ensures it starts below floated elements */
+  margin-top: 20px; /* Adds spacing from the container above */
+  padding: 15px;
+  background-color: #f9f9f9; /* Match the container styling */
+  border-top: 1px solid #ddd; /* Visual separation */
+  text-align: center;
+}
+
+
+.navbar {
+
+  padding: 10px 20px; /* Padding around the navbar */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.navbar .container {
+  max-width: 1200px; /* Max width for the navbar content */
+  margin: 0 auto; /* Center align */
+  display: flex; /* Flexbox for layout */
+  justify-content: space-between; /* Space between links */
+  align-items: center; /* Center vertically */
+}
+
+.nav-link {
+  color: rgb(92, 92, 92); /* White text color */
+  text-decoration: none; /* Remove underline */
+  padding: 10px 15px; /* Padding around the links */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.nav-link:hover {
+  background-color: #d4d4d4; /* Darker green on hover */
+}
